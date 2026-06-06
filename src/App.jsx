@@ -50,7 +50,9 @@ function App() {
   const [onlyOnline, setOnlyOnline] = useState(false)
   const [onlyDev, setOnlyDev] = useState(false)
 
-  let filteredUsers = users 
+  const [searchQuery, setSearchQuery] = useState('')
+
+  let filteredUsers = users.filter(user => user.name.toLowerCase().includes(searchQuery.toLowerCase())) 
   if (onlyOnline) {
     filteredUsers = filteredUsers.filter(user => user.isOnline)
   }
@@ -59,9 +61,13 @@ function App() {
   }
   
 
+
   return (
   <>
     Онлайн: {onlineCount} из {users.length}<br/>
+    <p>Поиск</p>
+    <input type="text" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)}/><br/>
+    <button onClick={() => setSearchQuery('')}>Очистить поиск</button>
 
     {
     filteredUsers.length === 0 
