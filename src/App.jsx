@@ -1,4 +1,5 @@
 import { useState } from "react"
+import './App.css'
 
 const users = [
   {
@@ -12,7 +13,7 @@ const users = [
     name: 'Kate',
     age: 30,
     city: 'Moscow',
-    isOnline: false,
+    isOnline: true,
     role: 'manager',
   },
   {
@@ -30,15 +31,14 @@ function User(props) {
 
   return (
 
-    <div>
-      <h3>Пользователь</h3>
-      {props.name}<br/>
-      {showAge ? props.age : 'Возраст скрыт'}<br/>
-      {props.city}<br/>
-      Роль: {props.role === 'developer' ? props.role + ' 💻' : props.role}<br/>
-      Статус: {props.isOnline ? '🟢 онлайн' : '⚪ офлайн'}
-      <p></p>
-      <button onClick={() => setShowAge(!showAge)}>{showAge ? 'Скрыть' : 'Показать'} возраст</button><br/>
+    <div className="user-card">
+      <h3>{props.name}</h3>
+      <p className="user-age">{showAge ? `Возраст: ${props.age}` : 'Возраст скрыт'}</p>
+      <p className="user-city">{props.city}</p>
+      <p className="user-role">Роль: {props.role === 'developer' ? props.role + ' 💻' : props.role}</p>
+      <p className="user-status">Статус: {props.isOnline ? '🟢 онлайн' : '⚪ офлайн'}</p>
+
+      <button className="show-age-button" onClick={() => setShowAge(!showAge)}>{showAge ? 'Скрыть' : 'Показать'} возраст</button>
     </div>
   )
 }
@@ -52,6 +52,7 @@ function App() {
 
   const [searchQuery, setSearchQuery] = useState('')
 
+  //фильтр пользователей
   let filteredUsers = users.filter(user => user.name.toLowerCase().includes(searchQuery.toLowerCase())) 
   if (onlyOnline) {
     filteredUsers = filteredUsers.filter(user => user.isOnline)
@@ -63,31 +64,63 @@ function App() {
 
 
   return (
-  <>
-    Онлайн: {onlineCount} из {users.length}<br/>
-    <p>Поиск</p>
-    <input type="text" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)}/><br/>
-    <button onClick={() => setSearchQuery('')}>Очистить поиск</button>
+  <div className="app">
+    
+    <header className="header">
+      <h1>Users Dashboard</h1>
+      <div className="stats">
+          Онлайн: <span className="online-count">{onlineCount}</span>{' '} из {users.length}
+      </div>
+    </header>
+    
+    <div className="controls">
+        
+      <div className="search-panel">
+        <input 
+          className="search-input" 
+          type="text" 
+          placeholder="Поиск пользователя..." 
+          value={searchQuery} 
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
+        <button 
+          className="clear-search-button" 
+          onClick={() => setSearchQuery('')}>Очистить
+        </button>
+      </div>
 
-    {
-    filteredUsers.length === 0 
-    ? 'Нет пользователей по выбранным фильтрам' :
-    (filteredUsers.map(user => (<User 
-      key={user.name}
-      name={user.name} 
-      age={user.age} 
-      city={user.city}
-      isOnline={user.isOnline}
-      role={user.role} 
-    />)))
-    }
-    <p></p>
+      <div className="filters">
+        <button 
+          className={onlyOnline ? 'filter-button-on' : 'filter-button-off'} 
+          onClick={() => setOnlyOnline(!onlyOnline)}>Показать {onlyOnline ? 'всех' : 'только онлайн'}
+        </button>
+        
+        <button 
+          className={onlyDev ? 'filter-button-on' : 'filter-button-off'} 
+          onClick={() => setOnlyDev(!onlyDev)}>Показать {onlyDev ? 'всех' : 'только разработчиков'}
+        </button>
+      </div>
+    
+    </div>
+    
+    <div className="users-list">
+      {
+      filteredUsers.length === 0 
+      ? <p className="empty-message">Нет пользователей по выбранным фильтрам</p> :
+      (filteredUsers.map(user => (<User 
+        key={user.name}
+        name={user.name} 
+        age={user.age} 
+        city={user.city}
+        isOnline={user.isOnline}
+        role={user.role} 
+      />)))
+     }
+    </div>
 
-    <button onClick={() => setOnlyOnline(!onlyOnline)}>Показать {onlyOnline ? 'всех' : 'только онлайн'}</button>
-    <p></p>
+    <footer className="total-users">Всего пользователей: {users.length}</footer>
 
-    <button onClick={() => setOnlyDev(!onlyDev)}>Показать {onlyDev ? 'всех' : 'только разработчиков'}</button>
-  </>
+  </div>
   )
 }
 
