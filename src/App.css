@@ -11,15 +11,6 @@ body {
     font-weight: 100;
 }
 
-.app {
-    max-width: 1350px;
-    margin: 30px auto;
-    padding: 30px;
-    background-color: #131929;
-    border: 1px solid #20273a;
-    border-radius: 26px;
-}
-
 h1, h3 {
     margin: 0;
     font-weight: 500;
@@ -36,6 +27,45 @@ h3 {
     font-weight: 500;
     padding: 10px 0;
     border-bottom: 1px solid #212738;
+}
+
+button {
+    font: inherit;
+    border-radius: 10px;
+    color: #e2e5e8;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.header-icon {
+    border: 1px solid #3c3671bf;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    box-shadow: 0 0 10px 3px #3c36717f;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #3c36717f;
+}
+
+.header-icon svg {
+    color: #b2a3ff;
+    width: 23px;
+    height: 23px;
+}
+
+.app {
+    max-width: 1350px;
+    margin: 20px 20px;
+    padding: 20px;
+    background-color: #131929;
+    border: 1px solid #20273a;
+    border-radius: 26px;
 }
 
 .stats {
@@ -97,8 +127,6 @@ h3 {
     height: 40px;
     background-color: #1c2033;
     border: 1px solid #313250;
-    border-radius: 10px;
-    color: #ffffff;
     cursor: pointer;
 }
 
@@ -111,23 +139,20 @@ h3 {
 .filter-button-off {
     background-color: #1a1f30;
     border: 1px solid #242a3e;
-    border-radius: 10px;
     padding: 5px 10px;
-    color: #ffffff;
     cursor: pointer;
 }
 
 .filter-button-on {
     background-color: #2A1F4F;
     border: 1px solid #8B5CF6;
-    border-radius: 10px;
     padding: 5px 10px;
-    color: #ffffff;
     cursor: pointer;
 }
 
 .users-list {
     display: flex;
+    flex-wrap: wrap;
     gap: 35px;
 }
 
@@ -136,7 +161,8 @@ h3 {
     border: 2px solid #1d2433;
     border-radius: 16px;
     padding: 20px;
-    width: 300px;
+    width: 100%;
+    max-width: 290px;
     box-shadow: -1px 5px 15px #0a0f1b;
 }
 
@@ -166,9 +192,21 @@ p {
     border: 2px solid #8B5CF6;    
 }
 
-footer {
-    margin-top: 50px;
+.footer {
+    border-top: 1px solid #212738;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    margin: 50px -20px 0;
+    padding: 20px 20px 0;
+
     font-size: 13px;
     color: #696d7b;
     font-weight: 400;
+}
+
+.footer-icon svg {
+    width: 25px;
+    height: 25px;
 }

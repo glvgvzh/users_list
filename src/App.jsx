@@ -1,5 +1,6 @@
 import { useState } from "react"
 import './App.css'
+import { Users } from 'lucide-react'
 
 const users = [
   {
@@ -67,10 +68,17 @@ function App() {
   <div className="app">
     
     <header className="header">
-      <h1>Users Dashboard</h1>
-      <div className="stats">
-          Онлайн: <span className="online-count">{onlineCount}</span>{' '} из {users.length}
+
+      <div className="header-icon">
+        <Users />
       </div>
+      <div className="header-info">
+        <h1>Users Dashboard</h1>
+        <div className="stats">
+            Онлайн: <span className="online-count">{onlineCount}</span>{' '} из {users.length}
+        </div>
+      </div>
+      
     </header>
     
     <div className="controls">
@@ -118,7 +126,17 @@ function App() {
      }
     </div>
 
-    <footer className="total-users">Всего пользователей: {users.length}</footer>
+    <footer className="footer">
+
+      <div className="footer-icon">
+        <Users />
+      </div>
+
+      <div className="footer-info">
+        Всего пользователей: {users.length}
+      </div>
+      
+    </footer>
 
   </div>
   )
