@@ -8,7 +8,7 @@ body {
     color: #F3F4F6;
     font-family: sans-serif;
     font-size: 14px;
-    font-weight: 100;
+    font-weight: 400;
 }
 
 h1, h3 {
@@ -26,6 +26,7 @@ h3 {
     font-size: 25px;
     font-weight: 500;
     padding: 10px 0;
+    margin-bottom: 10px;
     border-bottom: 1px solid #212738;
 }
 
@@ -123,6 +124,10 @@ button {
 }
 
 .clear-search-button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
     padding: 5px 10px;
     height: 40px;
     background-color: #1c2033;
@@ -136,7 +141,19 @@ button {
     border: 1px solid #8B5CF6;
 }
 
+.dev-filter-icon,
+.filter-online-icon,
+.clean-icon {
+    height: 16px;
+    width: 16px;
+    color: #8f73cd
+}
+
 .filter-button-off {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
     background-color: #1a1f30;
     border: 1px solid #242a3e;
     padding: 5px 10px;
@@ -144,6 +161,10 @@ button {
 }
 
 .filter-button-on {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
     background-color: #2A1F4F;
     border: 1px solid #8B5CF6;
     padding: 5px 10px;
@@ -157,6 +178,9 @@ button {
 }
 
 .user-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
     background-color: #181d2d;
     border: 2px solid #1d2433;
     border-radius: 16px;
@@ -166,17 +190,83 @@ button {
     box-shadow: -1px 5px 15px #0a0f1b;
 }
 
-p {
-    height: 20px;
+.top-status-icon {
+    position: absolute;
+}
+
+.top-status-icon svg {
+    height: 15px;
+    width: 15px;
+}
+
+
+.circle-user-pic {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.circle-user-pic svg {
+    height: 150px;
+    width: 150px;
+    color: #8f73cd;
+}
+
+.user-age-info,
+.user-city-info,
+.user-status-info,
+.empty-message {
+    color: #8e919b;
+}
+
+.user-age,
+.user-city,
+.user-role {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 8px;
 }
 
 .user-status {
-    padding: 10px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 20px 0;
+    margin-top: 10px;
     border-top: 1px solid #212738;
 }
 
+.user-age-icon svg,
+.user-city-icon svg,
+.footer-icon svg {
+    height: 20px;
+    width: 20px;
+    color: #8f73cd;
+}
+
+.user-role {
+    width: fit-content;
+    height: fit-content;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.user-status-icon {
+    display: flex;
+    align-items: center;
+}
+
+.user-status-icon svg {
+    width: 16px;
+    height: 16px;
+}
+
 .show-age-button {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
     width: 100%;
     height: 50px;
     background-color: #1e1f37;
@@ -204,9 +294,4 @@ p {
     font-size: 13px;
     color: #696d7b;
     font-weight: 400;
-}
-
-.footer-icon svg {
-    width: 25px;
-    height: 25px;
 }

@@ -1,6 +1,7 @@
 import { useState } from "react"
 import './App.css'
-import { Users } from 'lucide-react'
+import { Users, CircleUserRound, CalendarDays, MapPin, Circle, Eye, CodeXml, BrushCleaning } from 'lucide-react'
+
 
 const users = [
   {
@@ -14,7 +15,7 @@ const users = [
     name: 'Kate',
     age: 30,
     city: 'Moscow',
-    isOnline: true,
+    isOnline: false,
     role: 'manager',
   },
   {
@@ -33,13 +34,34 @@ function User(props) {
   return (
 
     <div className="user-card">
+      <div className="top-status-icon"><Circle fill={props.isOnline ? "#4fb653" : "#8e919b"} strokeWidth={0} /></div>
+      <div className="circle-user-pic"><CircleUserRound strokeWidth={0.3} /></div>
       <h3>{props.name}</h3>
-      <p className="user-age">{showAge ? `Возраст: ${props.age}` : 'Возраст скрыт'}</p>
-      <p className="user-city">{props.city}</p>
-      <p className="user-role">Роль: {props.role === 'developer' ? props.role + ' 💻' : props.role}</p>
-      <p className="user-status">Статус: {props.isOnline ? '🟢 онлайн' : '⚪ офлайн'}</p>
 
-      <button className="show-age-button" onClick={() => setShowAge(!showAge)}>{showAge ? 'Скрыть' : 'Показать'} возраст</button>
+      <div className="user-age">
+        <div className="user-age-icon"><CalendarDays strokeWidth={1.5} /></div>
+        <div className="user-age-info">Возраст: {showAge ? props.age : 'скрыт'}</div>
+      </div>
+
+      <div className="user-city">
+        <div className="user-city-icon"><MapPin strokeWidth={1.5} /></div>
+        <div className="user-city-info">{props.city}</div>
+      </div>
+
+      <div className="user-role"
+      style={{ 
+        backgroundColor: props.role === 'support' ? '#262445' : props.role === 'developer' ? '#252e4e' : '#332825',
+        color: props.role === 'support' ? '#b08de0' : props.role === 'developer' ? '#799ae6' : '#ffa418'
+      }}>
+        {props.role === 'developer' ? props.role + ' 💻' : props.role}
+      </div>
+
+      <div className="user-status">
+        <div className="user-status-icon"><Circle fill={props.isOnline ? "#4fb653" : "#8e919b"} strokeWidth={0} /></div>
+        <div className="user-status-info">Статус: {props.isOnline ? 'онлайн' : 'офлайн'}</div>
+      </div>
+
+      <button className="show-age-button" onClick={() => setShowAge(!showAge)}><Eye strokeWidth={1.5} />{showAge ? 'Скрыть' : 'Показать'} возраст</button>
     </div>
   )
 }
@@ -82,7 +104,6 @@ function App() {
     </header>
     
     <div className="controls">
-        
       <div className="search-panel">
         <input 
           className="search-input" 
@@ -93,21 +114,27 @@ function App() {
         />
         <button 
           className="clear-search-button" 
-          onClick={() => setSearchQuery('')}>Очистить
+          onClick={() => setSearchQuery('')}>
+            <BrushCleaning className="clean-icon" strokeWidth={2.5} />
+            Очистить
         </button>
       </div>
 
       <div className="filters">
         <button 
           className={onlyOnline ? 'filter-button-on' : 'filter-button-off'} 
-          onClick={() => setOnlyOnline(!onlyOnline)}>Показать {onlyOnline ? 'всех' : 'только онлайн'}
+          onClick={() => setOnlyOnline(!onlyOnline)}>
+            <Circle className="filter-online-icon" fill="#4fb653" strokeWidth={0} />
+            Показать {onlyOnline ? 'всех' : 'только онлайн'}
         </button>
         
         <button 
           className={onlyDev ? 'filter-button-on' : 'filter-button-off'} 
-          onClick={() => setOnlyDev(!onlyDev)}>Показать {onlyDev ? 'всех' : 'только разработчиков'}
+          onClick={() => setOnlyDev(!onlyDev)}>
+            <CodeXml className="dev-filter-icon" strokeWidth={2.5} />
+            Показать {onlyDev ? 'всех' : 'только разработчиков'}
         </button>
-      </div>
+     </div>
     
     </div>
     
