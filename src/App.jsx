@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react"
 import './App.css'
-import { Users, CircleUserRound, MapPin, BrushCleaning } from 'lucide-react'
+import { Users, CircleUserRound, MapPin, BrushCleaning, BriefcaseBusiness,
+  Mail, Phone, Globe, AtSign
+ } from 'lucide-react'
 
 function User({ name, email, city, company, phone, username, website }) {
 
@@ -10,23 +12,33 @@ function User({ name, email, city, company, phone, username, website }) {
       <div className="circle-user-pic"><CircleUserRound strokeWidth={0.3} /></div>
       <h3>{name}</h3>
 
-      <div className="user-age">
-        <div className="user-age-info">{email}</div>
-        <div></div>
+      <div className="user-email">
+        <div className="icon"><Mail /></div>
+        <div className="info">{email}</div>
       </div>
 
       <div className="user-city">
-        <div className="user-city-icon"><MapPin strokeWidth={1.5} /></div>
-        <div className="user-city-info">{city}</div>
+        <div className="icon"><MapPin /></div>
+        <div className="info">{city}</div>
       </div>
 
-      <div className="user-role">
-        {company}
+      <div className="user-company">
+        <div className="icon"><BriefcaseBusiness /></div>
+        <div className="info">{company}</div>
       </div>
 
-      <div>{phone}</div>
-      <div>{username}</div>
-      <div>{website}</div>
+      <div className="user-phone">
+        <div className="icon"><Phone /></div>
+        <div className="info">{phone}</div>
+      </div>
+      <div className="user-username">
+        <div className="icon"><AtSign /></div>
+        <div className="info">{username}</div>
+      </div>
+      <div className="user-website">
+        <div className="icon"><Globe /></div>
+        <div className="info">{website}</div>
+      </div>
     </div>
   )
 }
@@ -34,14 +46,27 @@ function User({ name, email, city, company, phone, username, website }) {
 function App() {
 
   const [apiUsers, setApiUsers] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
 
   useEffect(() => {
     fetch('https://jsonplaceholder.typicode.com/users')
-      .then((response) => response.json())
+      .then((response) => {
+        if (!response.ok) throw new Error('Ошибка загрузки :(')
+        return response.json()
+      })
       .then((data) => {
+        console.log(data)
+        console.log(Array.isArray(data))
         setApiUsers(data)
+        setLoading(false)
+      })
+      .catch((error) => {
+        setError(error)
+        setLoading(false)
       })
   }, [])
+
 
   const [searchQuery, setSearchQuery] = useState('')
 
@@ -62,6 +87,7 @@ function App() {
         </div>
         <div className="header-info">
           <h1>Users Dashboard</h1>
+          <div>Всего пользователей: {error ? '-' : loading ? '...' : apiUsers.length}</div>
         </div>
 
       </header>
@@ -86,7 +112,11 @@ function App() {
       </div>
 
       <div className="users-list">
-        {
+        {loading ? (
+          <p className="empty-message">Пользователи загружаются...</p>
+        ) : error !== null ? (
+          <p className="empty-message">{error.message}</p>
+        ) :
           filteredUsers.length === 0
             ? <p className="empty-message">Нет пользователей по выбранным фильтрам</p>
             : (filteredUsers.map(user => (<User
@@ -109,7 +139,7 @@ function App() {
         </div>
 
         <div className="footer-info">
-          Всего пользователей: {apiUsers.length}
+          Всего пользователей: {error ? '-' : loading ? '...' : apiUsers.length}
         </div>
 
       </footer>
