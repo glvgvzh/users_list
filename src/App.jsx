@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react"
 import './App.css'
-import { Users, CircleUserRound, MapPin, BrushCleaning, BriefcaseBusiness,
-  Mail, Phone, Globe, AtSign
- } from 'lucide-react'
+import {
+  Users, CircleUserRound, MapPin, BrushCleaning, BriefcaseBusiness,
+  Mail, Phone, Globe, AtSign, Loader
+} from 'lucide-react'
 
 function User({ name, email, city, company, phone, username, website }) {
 
@@ -50,28 +51,29 @@ function App() {
   const [error, setError] = useState(null)
 
   useEffect(() => {
-    fetch('https://jsonplaceholder.typicode.com/users')
-      .then((response) => {
-        if (!response.ok) throw new Error('Ошибка загрузки :(')
-        return response.json()
-      })
-      .then((data) => {
-        console.log(data)
-        console.log(Array.isArray(data))
+    async function loadUsers() {
+      try {
+        const response = await fetch('https://jsonplaceholder.typicode.com/users')
+        if (!response.ok) {
+          throw new Error('Ошибка загрузки :(')
+        }
+        const data = await response.json()
         setApiUsers(data)
         setLoading(false)
-      })
-      .catch((error) => {
-        setError(error)
+      }
+      catch (error) {
+        setError(error.message)
         setLoading(false)
-      })
+      }
+    }
+    loadUsers()
   }, [])
 
 
   const [searchQuery, setSearchQuery] = useState('')
 
   //фильтр пользователей
-  let filteredUsers = apiUsers.filter(user => 
+  let filteredUsers = apiUsers.filter(user =>
     user.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
     user.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
     user.username.toLowerCase().includes(searchQuery.toLowerCase())
@@ -113,9 +115,11 @@ function App() {
 
       <div className="users-list">
         {loading ? (
-          <p className="empty-message">Пользователи загружаются...</p>
+          <div className="loader-wrapper">
+            <div className="loader"><Loader /></div>
+          </div>
         ) : error !== null ? (
-          <p className="empty-message">{error.message}</p>
+          <p className="empty-message">{error}</p>
         ) :
           filteredUsers.length === 0
             ? <p className="empty-message">Нет пользователей по выбранным фильтрам</p>
