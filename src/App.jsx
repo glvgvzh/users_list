@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react"
 import './App.css'
-import {
-  Users, BrushCleaning, Loader
-} from 'lucide-react'
-import User from "./User"
+import Header from "./Header"
+import Controls from "./Controls"
+import UsersList from "./UsersList"
+import Footer from "./Footer"
 
 function App() {
 
@@ -43,71 +43,13 @@ function App() {
   return (
     <div className="app">
 
-      <header className="header">
+      <Header error={error} loading={loading} apiUsersLength={apiUsers.length} />
 
-        <div className="header-icon">
-          <Users />
-        </div>
-        <div className="header-info">
-          <h1>Users Dashboard</h1>
-          <div>Всего пользователей: {error ? '-' : loading ? '...' : apiUsers.length}</div>
-        </div>
+      <Controls searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
 
-      </header>
+      <UsersList loading={loading} error={error} filteredUsers={filteredUsers} />
 
-      <div className="controls">
-        <div className="search-panel">
-          <input
-            className="search-input"
-            type="text"
-            placeholder="Поиск пользователя..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
-          <button
-            className="clear-search-button"
-            onClick={() => setSearchQuery('')}>
-            <BrushCleaning className="clean-icon" strokeWidth={2.5} />
-            Очистить
-          </button>
-        </div>
-
-      </div>
-
-      <div className="users-list">
-        {loading ? (
-          <div className="loader-wrapper">
-            <div className="loader"><Loader /></div>
-          </div>
-        ) : error !== null ? (
-          <p className="empty-message">{error}</p>
-        ) :
-          filteredUsers.length === 0
-            ? <p className="empty-message">Нет пользователей по выбранным фильтрам</p>
-            : (filteredUsers.map(user => (<User
-              key={user.id}
-              name={user.name}
-              email={user.email}
-              city={user.address.city}
-              company={user.company.name}
-              phone={user.phone}
-              username={user.username}
-              website={user.website}
-            />)))
-        }
-      </div>
-
-      <footer className="footer">
-
-        <div className="footer-icon">
-          <Users />
-        </div>
-
-        <div className="footer-info">
-          Всего пользователей: {error ? '-' : loading ? '...' : apiUsers.length}
-        </div>
-
-      </footer>
+      <Footer error={error} loading={loading} apiUsersLength={apiUsers.length} />
 
     </div>
   )

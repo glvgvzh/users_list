@@ -2,19 +2,19 @@
 
 * {
   box-sizing: border-box;
+  margin: 0;
 }
 
 :root {
     --body-bgc: #0F172A;
     --text-color: #E8EDF5;
     --accent: #3abbcf; 
+    --panels-bgc: #141e3a;
+    --borders: #1a2648;
+    --empty-color: #6a7a9a;
 }
 
 body {
-    max-height: 100vh;
-    min-width: 100vh;
-    width: none;
-    margin: 0;
     background-color: var(--body-bgc);
     color: var(--text-color);
     font-family: sans-serif;
@@ -22,14 +22,10 @@ body {
     font-weight: 400;
 }
 
-h1, h3 {
-    margin: 0;
-    font-weight: 500;
-}
-
 h1 {
     color: var(--text-color);
     font-size: 30px;
+    font-weight: 500;
 }
 
 h3 {
@@ -83,8 +79,8 @@ button {
 
 
 .controls {
-    background-color: #141E3A;
-    border: 2px solid #1A2648;
+    background-color: var(--panels-bgc);
+    border: 2px solid var(--borders);
     box-shadow: -1px 5px 15px #060A18;
     border-radius: 16px;
 
@@ -106,7 +102,7 @@ button {
     .search-input {
         font-size: 16px;
         background-color: #0F1830;
-        border: 1px solid #1A2648;
+        border: 1px solid var(--borders);
         border-radius: 10px;
         color: #E8EDF5;
 
@@ -134,7 +130,7 @@ button {
         gap: 10px;
         padding: 5px 10px;
         height: 40px;
-        background-color: #1A2648;
+        background-color: var(--borders);
         border: 1px solid #2A3A6A;
         cursor: pointer;
         transition: 0.3s ease;
@@ -153,6 +149,7 @@ button {
 .users-list {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
     gap: 35px;
 }
 
@@ -160,8 +157,8 @@ button {
     position: relative;
     display: flex;
     flex-direction: column;
-    background-color: #141E3A;
-    border: 2px solid #1A2648;
+    background-color: var(--panels-bgc);
+    border: 2px solid var(--borders);
     border-radius: 16px;
     padding: 20px;
     width: 100%;
@@ -173,6 +170,18 @@ button {
 .user-card:hover {
     border-color: var(--accent);
     box-shadow: 0 0 12px rgba(244,114,107,0.2);
+}
+
+.user-email,
+.user-city,
+.user-company,
+.user-phone,
+.user-username,
+.user-website {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 8px;
 }
 
 
@@ -190,7 +199,7 @@ button {
 
 .info,
 .empty-message {
-    color: #6A7A9A;
+    color: var(--empty-color);
 }
 
 .loader-wrapper {
@@ -199,6 +208,7 @@ button {
     align-items: center;
     justify-content: center;
     padding: 10px;
+    color: var(--empty-color);
 }
 
 .loader svg {
@@ -232,18 +242,6 @@ button {
     color: var(--accent);
 }
 
-.user-email,
-.user-city,
-.user-company,
-.user-phone,
-.user-username,
-.user-website {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin: 8px;
-}
-
 .footer {
     border-top: 1px solid #1E2940;
     display: flex;
@@ -254,6 +252,7 @@ button {
     padding: 15px 20px 0;
 
     font-size: 13px;
-    color: #4A5A7A;
     font-weight: 400;
+
+    color: var(--empty-color);
 }
