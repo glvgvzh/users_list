@@ -1,6 +1,6 @@
 import { BrushCleaning } from 'lucide-react'
 
-function Controls({ searchQuery, setSearchQuery }) {
+function Controls({ searchQuery, setSearchQuery, loadUsers }) {
     return (
         <>
             <div className="controls">
@@ -17,6 +17,10 @@ function Controls({ searchQuery, setSearchQuery }) {
                         onClick={() => setSearchQuery('')}>
                         <BrushCleaning className="clean-icon" strokeWidth={2.5} />
                         Очистить
+                    </button>
+                    <button className='refresh-users-list'
+                        onClick={loadUsers}>
+                        Обновить пользователей
                     </button>
                 </div>
             </div>
