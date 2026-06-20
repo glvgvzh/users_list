@@ -20,7 +20,7 @@ function Controls({ searchQuery, setSearchQuery, loadUsers }) {
                     </button>
                     <button className='refresh-users-list'
                         onClick={loadUsers}>
-                        Обновить пользователей
+                        Обновить
                     </button>
                 </div>
             </div>

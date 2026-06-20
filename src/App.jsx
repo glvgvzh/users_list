@@ -2,14 +2,56 @@ import { useState, useEffect } from "react"
 import './App.css'
 import Header from "./Header"
 import Controls from "./Controls"
+import Modal from "./Modal"
 import UsersList from "./UsersList"
 import Footer from "./Footer"
 
 function App() {
 
+  async function createUser(user) {
+    try {
+      const newUser = {
+        name: user.name,
+        email: user.email,
+        address: {
+          city: user.city
+        },
+        company: {
+          name: user.company
+        },
+        phone: user.phone,
+        username: user.username,
+        website: user.website,
+      }
+      const response = await fetch('https://jsonplaceholder.typicode.com/users', {
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        method: 'POST',
+        body: JSON.stringify(newUser)
+      })
+      console.log(response.status)
+      if (!response.ok) {
+        throw new Error('Ошибка')
+      }
+      const data = await response.json()
+      return data
+    }
+    catch (error) {
+      console.log(error.message)
+    }
+  }
+
+  function handleCreateUser(newUser) {
+    setApiUsers(prev => [...prev, {...newUser, id: Date.now()}])
+  }
+
+
   const [apiUsers, setApiUsers] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   async function loadUsers() {
     try {
@@ -47,7 +89,18 @@ function App() {
 
       <Header error={error} loading={loading} apiUsersLength={apiUsers.length} />
 
-      <Controls searchQuery={searchQuery} setSearchQuery={setSearchQuery} loadUsers={loadUsers} />
+      <Controls
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+
+        loadUsers={loadUsers}
+      />
+
+      <button className="create-user"
+        onClick={() => setIsModalOpen(true)}>
+        Создать пользователя
+      </button>
+      {isModalOpen ? <Modal setIsModalOpen={setIsModalOpen} createUser={createUser} onCreateUser={handleCreateUser} /> : null}
 
       <UsersList loading={loading} error={error} filteredUsers={filteredUsers} />
 

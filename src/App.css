@@ -1,5 +1,3 @@
-/* F4726B */
-
 * {
   box-sizing: border-box;
   margin: 0;
@@ -10,8 +8,9 @@
     --text-color: #E8EDF5;
     --accent: #3abbcf; 
     --panels-bgc: #141e3a;
-    --borders: #1a2648;
+    --border-color: #1a2648;
     --empty-color: #6a7a9a;
+    --borders: 1px solid #1E2940;
 }
 
 body {
@@ -50,6 +49,9 @@ button {
     background-color: #131C35;
     border: 1px solid #1E2940;
     border-radius: 26px;
+
+    display: flex;
+    flex-direction: column;
 }
 
 .header {
@@ -80,7 +82,7 @@ button {
 
 .controls {
     background-color: var(--panels-bgc);
-    border: 2px solid var(--borders);
+    border: 2px solid var(--border-color);
     box-shadow: -1px 5px 15px #060A18;
     border-radius: 16px;
 
@@ -102,7 +104,7 @@ button {
     .search-input {
         font-size: 16px;
         background-color: #0F1830;
-        border: 1px solid var(--borders);
+        border: 1px solid var(--border-color);
         border-radius: 10px;
         color: #E8EDF5;
 
@@ -123,22 +125,20 @@ button {
         box-shadow: 0 0 0 3px rgba(244,114,107,0.15);
     }
 
-    .clear-search-button,
-    .refresh-users-list {
+    button {
         display: flex;
         align-items: center;
         justify-content: center;
         gap: 10px;
         padding: 5px 10px;
         height: 40px;
-        background-color: var(--borders);
+        background-color: var(--border-color);
         border: 1px solid #2A3A6A;
         cursor: pointer;
         transition: 0.3s ease;
     }
 
-    .clear-search-button:hover,
-    .refresh-users-list:hover {
+    button:hover {
         border: 1px solid var(--accent);
     }
 
@@ -160,7 +160,7 @@ button {
     display: flex;
     flex-direction: column;
     background-color: var(--panels-bgc);
-    border: 2px solid var(--borders);
+    border: 2px solid var(--border-color);
     border-radius: 16px;
     padding: 20px;
     width: 100%;
@@ -257,4 +257,77 @@ button {
     font-weight: 400;
 
     color: var(--empty-color);
+}
+
+.create-user {
+    width: fit-content;
+    margin-bottom: 30px;
+}
+
+
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    overflow-x: auto;
+
+    background-color: rgba(0, 0, 0, 0.55);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    z-index: 100;
+}
+
+.modal {
+    width: min(520px, 90vw);
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+
+    border: var(--borders);
+    border-radius: 20px;
+
+    padding: 20px;
+    background-color: var(--panels-bgc);
+}
+
+.modal-buttons {
+    display: flex;
+    align-self: center;
+    gap: 30px;
+    margin-top: auto;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.form div {
+    width: 250px;
+}
+
+.form input {
+    background-color: #2A3A6A;
+    border: 1px solid var(--border-color);
+    box-shadow: none;
+    padding: 5px 10px;
+    color: inherit;
+}
+
+.form input:focus {
+    outline: none;
+    caret-color: wheat;
+}
+
+.field {
+    display: flex;
+    gap: 10px;
+}
+
+.field-error {
+    color: red;
+    margin-left: 100px;
 }
