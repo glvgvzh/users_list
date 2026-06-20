@@ -1,51 +1,44 @@
 import { useState } from "react"
 
 function Modal({ setIsModalOpen, createUser, onCreateUser }) {
-    const [name, setName] = useState('')
-    const [email, setEmail] = useState('')
-    const [city, setCity] = useState('')
-    const [company, setCompany] = useState('')
-    const [phone, setPhone] = useState('')
-    const [username, setUsername] = useState('')
-    const [website, setWebsite] = useState('')
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        city: '',
+        company: '',
+        phone: '',
+        username: '',
+        website: '',
+    })
 
     const [errors, setErrors] = useState({})
 
     async function handleSubmit() {
-        const newUser = {
-            name,
-            email,
-            city,
-            company,
-            phone,
-            username,
-            website,
-        }
-
         const newErrors = {}
-
-        if (name.trim() === '') {
+        if (formData.name.trim() === '') {
             newErrors.name = 'Заполните имя'
         }
-        if (email.trim() === '') {
+        if (formData.email.trim() === '') {
             newErrors.email = 'Заполните email'
-        } else if (!email.includes('@')) {
+        } else if (!formData.email.includes('@')) {
             newErrors.email = 'Email должен содержать @'
         }
-        if (username.trim() === '') {
+        if (formData.username.trim() === '') {
             newErrors.username = 'Заполните юзернейм'
         }
-
         setErrors(newErrors)
-
         if (Object.keys(newErrors).length > 0) {
             return
-        } 
+        }
 
-
-        const createdUser = await createUser(newUser)
+        const createdUser = await createUser({...formData})
         onCreateUser(createdUser)
         setIsModalOpen(false)
+    }
+
+    function handleChange(fieldName, value) {
+        setFormData(prev => ({...prev, [fieldName]: value}))
+        setErrors(prev => ({...prev, [fieldName]: ''}))
     }
 
     return (
@@ -57,11 +50,8 @@ function Modal({ setIsModalOpen, createUser, onCreateUser }) {
                         <div>Имя:</div>
                         <input type="text"
                             style={{ border: errors.name ? '1px solid red' : null }}
-                            value={name}
-                            onChange={(e) => {
-                                setName(e.target.value)
-                                setErrors(prev => ({...prev, name: ''}))
-                            }}
+                            value={formData.name}
+                            onChange={(e) => handleChange('name', e.target.value)}
                         />
                     </div>
 
@@ -71,11 +61,8 @@ function Modal({ setIsModalOpen, createUser, onCreateUser }) {
                         <div>Email:</div>
                         <input type="text"
                             style={{ border: errors.email ? '1px solid red' : null }}
-                            value={email}
-                            onChange={(e) => {
-                                setEmail(e.target.value)
-                                setErrors(prev => ({...prev, email: ''}))
-                            }}
+                            value={formData.email}
+                            onChange={(e) => handleChange('email', e.target.value)}
                         />
                     </div>
 
@@ -84,24 +71,24 @@ function Modal({ setIsModalOpen, createUser, onCreateUser }) {
                     <div className="field">
                         <div>Город:</div>
                         <input type="text"
-                            value={city}
-                            onChange={(e) => setCity(e.target.value)}
+                            value={formData.city}
+                            onChange={(e) => handleChange('city', e.target.value)}
                         />
                     </div>
 
                     <div className="field">
                         <div>Компания:</div>
                         <input type="text"
-                            value={company}
-                            onChange={(e) => setCompany(e.target.value)}
+                            value={formData.company}
+                            onChange={(e) => handleChange('company', e.target.value)}
                         />
                     </div>
 
                     <div className="field">
                         <div>Телефон:</div>
                         <input type="text"
-                            value={phone}
-                            onChange={(e) => setPhone(e.target.value)}
+                            value={formData.phone}
+                            onChange={(e) => handleChange('phone', e.target.value)}
                         />
                     </div>
 
@@ -109,11 +96,8 @@ function Modal({ setIsModalOpen, createUser, onCreateUser }) {
                         <div>Юзернейм:</div>
                         <input type="text"
                             style={{ border: errors.username ? '1px solid red' : null }}
-                            value={username}
-                            onChange={(e) => {
-                                setUsername(e.target.value)
-                                setErrors(prev => ({...prev, username: ''}))
-                            }}
+                            value={formData.username}
+                            onChange={(e) => handleChange('username', e.target.value)}
                         />
                     </div>
 
@@ -122,8 +106,8 @@ function Modal({ setIsModalOpen, createUser, onCreateUser }) {
                     <div className="field">
                         <div>Сайт:</div>
                         <input type="text"
-                            value={website}
-                            onChange={(e) => setWebsite(e.target.value)}
+                            value={formData.website}
+                            onChange={(e) => handleChange('website', e.target.value)}
                         />
                     </div>
 
