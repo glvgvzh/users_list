@@ -30,7 +30,6 @@ function App() {
         method: 'POST',
         body: JSON.stringify(newUser)
       })
-      console.log(response.status)
       if (!response.ok) {
         throw new Error('Ошибка')
       }
@@ -45,7 +44,6 @@ function App() {
   function handleCreateUser(newUser) {
     setApiUsers(prev => [...prev, {...newUser, id: Date.now()}])
   }
-
 
   const [apiUsers, setApiUsers] = useState([])
   const [loading, setLoading] = useState(true)
@@ -72,12 +70,23 @@ function App() {
     }
   }
 
-  useEffect(() => { loadUsers() }, [])
+  useEffect(() => { 
+    const localStorageUsers = JSON.parse(localStorage.getItem('users'))
+    if (localStorageUsers === null) {
+      loadUsers()
+      return
+    }
+    setApiUsers(localStorageUsers)
+    setLoading(false)
+  }, [])
 
+  useEffect(() => {
+    if (loading) return
+    localStorage.setItem('users', JSON.stringify(apiUsers))
+  }, [apiUsers, loading])
 
   const [searchQuery, setSearchQuery] = useState('')
 
-  //фильтр пользователей
   let filteredUsers = apiUsers.filter(user =>
     user.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
     user.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
