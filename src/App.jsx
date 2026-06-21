@@ -93,6 +93,10 @@ function App() {
     user.username.toLowerCase().includes(searchQuery.toLowerCase())
   )
 
+  function deleteUser(userId) {
+    setApiUsers(prev => prev.filter(user => user.id !== userId))
+  }
+
   return (
     <div className="app">
 
@@ -111,7 +115,7 @@ function App() {
       </button>
       {isModalOpen ? <Modal setIsModalOpen={setIsModalOpen} createUser={createUser} onCreateUser={handleCreateUser} /> : null}
 
-      <UsersList loading={loading} error={error} filteredUsers={filteredUsers} />
+      <UsersList loading={loading} error={error} filteredUsers={filteredUsers} deleteUser={deleteUser} />
 
       <Footer error={error} loading={loading} apiUsersLength={apiUsers.length} />
 

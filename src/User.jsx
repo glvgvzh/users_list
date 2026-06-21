@@ -2,9 +2,9 @@ import {
   CircleUserRound, MapPin, Mail, Phone, Globe, AtSign, BriefcaseBusiness, EllipsisVertical,
   SquarePen, Trash2
 } from 'lucide-react'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 
-function User({ user }) {
+function User({ user, deleteUser }) {
 
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
@@ -30,6 +30,7 @@ function User({ user }) {
             </button>
             <button className='delete'
               onClick={() => {
+                deleteUser(user.id)
                 setIsMenuOpen(false)
               }}
             >
