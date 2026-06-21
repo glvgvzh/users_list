@@ -21,21 +21,27 @@ function Modal({ setIsModalOpen, createUser, onCreateUser }) {
         website: 'Сайт',
     }
 
+    const requiredFields = {
+        name: 'Заполните имя',
+        email: 'Заполните email',
+        username: 'Заполните юзернейм',
+    }
+
     const [errors, setErrors] = useState({})
 
     async function handleSubmit() {
         const newErrors = {}
-        if (formData.name.trim() === '') {
-            newErrors.name = 'Заполните имя'
-        }
-        if (formData.email.trim() === '') {
-            newErrors.email = 'Заполните email'
-        } else if (!formData.email.includes('@')) {
+
+        Object.keys(requiredFields).forEach(element => {
+            if (formData[element].trim() === '') {
+                newErrors[element] = requiredFields[element]
+            }
+        })
+
+        if (formData.email.trim() !== '' && !formData.email.includes('@')) {
             newErrors.email = 'Email должен содержать @'
         }
-        if (formData.username.trim() === '') {
-            newErrors.username = 'Заполните юзернейм'
-        }
+
         setErrors(newErrors)
         if (Object.keys(newErrors).length > 0) {
             return
