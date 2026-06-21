@@ -1,7 +1,7 @@
 import UsersLoader from "./UsersLoader"
 import User from "./User"
 
-function UsersList({ loading, error, filteredUsers, setIsDeleteModalOpen, setUserToDelete }) {
+function UsersList({ loading, error, filteredUsers, setIsDeleteModalOpen, setUserToDelete, setUserToEdit, setIsEditModalOpen }) {
     return (
         <>
             <div className="users-list">
@@ -18,6 +18,8 @@ function UsersList({ loading, error, filteredUsers, setIsDeleteModalOpen, setUse
                                 user={user}
                                 setIsDeleteModalOpen={setIsDeleteModalOpen}
                                 setUserToDelete={setUserToDelete}
+                                setUserToEdit={setUserToEdit}
+                                setIsEditModalOpen={setIsEditModalOpen}
                             />))
                         )
                 }

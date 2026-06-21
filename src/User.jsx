@@ -4,7 +4,7 @@ import {
 } from 'lucide-react'
 import { useState } from 'react'
 
-function User({ user, setIsDeleteModalOpen, setUserToDelete }) {
+function User({ user, setIsDeleteModalOpen, setUserToDelete, setUserToEdit, setIsEditModalOpen }) {
 
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
@@ -22,6 +22,8 @@ function User({ user, setIsDeleteModalOpen, setUserToDelete }) {
           <div className='dropdown-menu'>
             <button className='edit'
               onClick={() => {
+                setUserToEdit(user)
+                setIsEditModalOpen(true)
                 setIsMenuOpen(false)
               }}
             >

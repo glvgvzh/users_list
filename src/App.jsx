@@ -4,6 +4,7 @@ import Header from "./Header"
 import Controls from "./Controls"
 import CreateModal from "./CreateModal"
 import DeleteModal from "./DeleteModal"
+import EditModal from "./EditModal"
 import UsersList from "./UsersList"
 import Footer from "./Footer"
 
@@ -19,6 +20,9 @@ function App() {
 
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
   const [userToDelete, setUserToDelete] = useState(null)
+
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false)
+  const [userToEdit, setUserToEdit] = useState(null)
 
 
   async function createUser(user) {
@@ -102,6 +106,7 @@ function App() {
   function deleteUser(userId) {
     setApiUsers(prev => prev.filter(user => user.id !== userId))
   }
+  
 
   return (
     <div className="app">
@@ -132,13 +137,25 @@ function App() {
         />
       }
 
+      {isEditModalOpen && userToEdit !== null &&
+        <EditModal
+          userToEdit={userToEdit}
+          setIsEditModalOpen={setIsEditModalOpen}
+          setUserToEdit={setUserToEdit}
+        />
+      }
+
 
       <UsersList
         loading={loading}
         error={error}
         filteredUsers={filteredUsers}
+
         setUserToDelete={setUserToDelete}
         setIsDeleteModalOpen={setIsDeleteModalOpen}
+
+        setUserToEdit={setUserToEdit}
+        setIsEditModalOpen={setIsEditModalOpen}
       />
 
       <Footer error={error} loading={loading} apiUsersLength={apiUsers.length} />

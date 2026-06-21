@@ -69,7 +69,8 @@ button:hover {
 .user-card,
 .controls,
 .modal,
-.delete-modal {
+.delete-modal,
+.edit-modal {
     background-color: var(--panels-bgc);
     border: var(--borders);
 }
@@ -237,7 +238,9 @@ button:hover {
     color: var(--danger);
 }
 
-.delete-modal-overlay {
+.modal-overlay,
+.delete-modal-overlay,
+.edit-modal-overlay {
     position: fixed;
     inset: 0;
     overflow-x: auto;
@@ -251,19 +254,69 @@ button:hover {
     z-index: 100;
 }
 
-.delete-modal {
-    width: min(420px, 90vw);
+.modal,
+.delete-modal,
+.edit-modal {
+    width: min(520px, 90vw);
     display: flex;
     flex-direction: column;
     gap: 30px;
-    align-items: center;
     border-radius: 20px;
     padding: 20px;
+}
+
+ .delete-modal {
     font-size: 16px;
 }
 
+.modal-buttons {
+    display: flex;
+    align-self: center;
+    gap: 30px;
+    margin-top: auto;
+}
 
-.delete-modal-buttons {
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.field {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.field-label {
+    width: 100px;
+}
+
+.field-input {
+    background-color: var(--panel-soft);
+    border: var(--borders);
+    box-shadow: none;
+    padding: 5px 10px;
+    color: inherit;
+}
+
+.field-input:focus {
+    outline: none;
+    caret-color: var(--text-color);
+}
+
+.field-input-error {
+    border: 1px solid var(--danger);
+}
+
+.field-error-info,
+.required-star {
+    color: var(--danger);
+}
+
+
+.delete-modal-buttons,
+.edit-modal-buttons {
     display: flex;
     align-self: center;
     gap: 30px;
@@ -396,73 +449,4 @@ button:hover {
 
     font-size: 13px;
     font-weight: 400;
-}
-
-
-.modal-overlay {
-    position: fixed;
-    inset: 0;
-    overflow-x: auto;
-
-    background-color: rgba(0, 0, 0, 0.55);
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    z-index: 100;
-}
-
-.modal {
-    width: min(520px, 90vw);
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-    border-radius: 20px;
-    padding: 20px;
-}
-
-.modal-buttons {
-    display: flex;
-    align-self: center;
-    gap: 30px;
-    margin-top: auto;
-}
-
-.form {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.field {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-}
-
-.field-label {
-    width: 100px;
-}
-
-.field-input {
-    background-color: var(--panel-soft);
-    border: var(--borders);
-    box-shadow: none;
-    padding: 5px 10px;
-    color: inherit;
-}
-
-.field-input:focus {
-    outline: none;
-    caret-color: var(--text-color);
-}
-
-.field-input-error {
-    border: 1px solid var(--danger);
-}
-
-.field-error-info,
-.required-star {
-    color: var(--danger);
 }
