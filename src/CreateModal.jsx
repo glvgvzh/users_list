@@ -10,7 +10,7 @@ const fields = [
     { key: 'website', label: 'Сайт', required: false },
 ]
 
-function Modal({ setIsModalOpen, createUser, onCreateUser }) {
+function CreateModal({ setIsCreateModalOpen, createUser, onCreateUser }) {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -43,7 +43,7 @@ function Modal({ setIsModalOpen, createUser, onCreateUser }) {
 
         const createdUser = await createUser({ ...formData })
         onCreateUser(createdUser)
-        setIsModalOpen(false)
+        setIsCreateModalOpen(false)
     }
 
     function handleChange(fieldName, value) {
@@ -74,7 +74,7 @@ function Modal({ setIsModalOpen, createUser, onCreateUser }) {
                     }
                 </div>
                 <div className="modal-buttons">
-                    <button className="cancel-create" onClick={() => setIsModalOpen(false)}>Отмена</button>
+                    <button className="cancel-create" onClick={() => setIsCreateModalOpen(false)}>Отмена</button>
                     <button className="submit-create" onClick={handleSubmit}>Создать</button>
                 </div>
             </div>
@@ -82,4 +82,4 @@ function Modal({ setIsModalOpen, createUser, onCreateUser }) {
     )
 }
 
-export default Modal
+export default CreateModal

@@ -1,6 +1,6 @@
 import { BrushCleaning, RefreshCcw, UserRoundPlus } from 'lucide-react'
 
-function Controls({ searchQuery, setSearchQuery, loadUsers, setIsModalOpen }) {
+function Controls({ searchQuery, setSearchQuery, loadUsers, setIsCreateModalOpen }) {
     return (
         <>
             <div className="controls">
@@ -27,7 +27,7 @@ function Controls({ searchQuery, setSearchQuery, loadUsers, setIsModalOpen }) {
                     </button>
 
                     <button className="create-user"
-                        onClick={() => setIsModalOpen(true)}>
+                        onClick={() => setIsCreateModalOpen(true)}>
                         <UserRoundPlus />
                         Создать пользователя
                     </button>

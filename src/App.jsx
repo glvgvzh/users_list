@@ -2,7 +2,8 @@ import { useState, useEffect } from "react"
 import './App.css'
 import Header from "./Header"
 import Controls from "./Controls"
-import Modal from "./Modal"
+import CreateModal from "./CreateModal"
+import DeleteModal from "./DeleteModal"
 import UsersList from "./UsersList"
 import Footer from "./Footer"
 
@@ -14,7 +15,7 @@ function App() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
 
-  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false)
 
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
   const [userToDelete, setUserToDelete] = useState(null)
@@ -111,43 +112,26 @@ function App() {
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
         loadUsers={loadUsers}
-        setIsModalOpen={setIsModalOpen}
+        setIsCreateModalOpen={setIsCreateModalOpen}
       />
 
-      {isModalOpen &&
-        <Modal
-          setIsModalOpen={setIsModalOpen}
+      {isCreateModalOpen &&
+        <CreateModal
+          setIsCreateModalOpen={setIsCreateModalOpen}
           createUser={createUser}
           onCreateUser={handleCreateUser}
         />
       }
 
       {isDeleteModalOpen && userToDelete !== null &&
-        <div className='delete-modal-overlay'>
-          <div className='delete-modal'>
-
-            <div className="confirm-message">Удалить пользователя {userToDelete.name}?</div>
-
-            <div className="delete-modal-buttons">
-              <button
-                className="confirm-no"
-                onClick={() => {
-                  setUserToDelete(null)
-                  setIsDeleteModalOpen(false)
-                }}>No</button>
-
-              <button
-                className="confirm-yes"
-                onClick={() => {
-                  deleteUser(userToDelete.id)
-                  setUserToDelete(null)
-                  setIsDeleteModalOpen(false)
-                }}>Yes</button>
-            </div>
-
-          </div>
-        </div>
+        <DeleteModal
+          userToDelete={userToDelete}
+          setUserToDelete={setUserToDelete}
+          setIsDeleteModalOpen={setIsDeleteModalOpen}
+          deleteUser={deleteUser}
+        />
       }
+
 
       <UsersList
         loading={loading}
