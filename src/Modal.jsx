@@ -11,6 +11,16 @@ function Modal({ setIsModalOpen, createUser, onCreateUser }) {
         website: '',
     })
 
+    const labels = {
+        name: 'Имя',
+        email: 'Email',
+        city: 'Город',
+        company: 'Компания',
+        phone: 'Телефон',
+        username: 'Юзернейм',
+        website: 'Сайт',
+    }
+
     const [errors, setErrors] = useState({})
 
     async function handleSubmit() {
@@ -31,14 +41,14 @@ function Modal({ setIsModalOpen, createUser, onCreateUser }) {
             return
         }
 
-        const createdUser = await createUser({...formData})
+        const createdUser = await createUser({ ...formData })
         onCreateUser(createdUser)
         setIsModalOpen(false)
     }
 
     function handleChange(fieldName, value) {
-        setFormData(prev => ({...prev, [fieldName]: value}))
-        setErrors(prev => ({...prev, [fieldName]: ''}))
+        setFormData(prev => ({ ...prev, [fieldName]: value }))
+        setErrors(prev => ({ ...prev, [fieldName]: '' }))
     }
 
     return (
@@ -46,71 +56,22 @@ function Modal({ setIsModalOpen, createUser, onCreateUser }) {
             <div className="modal">
                 <h1>Создание пользователя</h1>
                 <div className="form">
-                    <div className="field">
-                        <div>Имя:</div>
-                        <input type="text"
-                            style={{ border: errors.name ? '1px solid red' : null }}
-                            value={formData.name}
-                            onChange={(e) => handleChange('name', e.target.value)}
-                        />
-                    </div>
-
-                    {errors.name ? <div className="field-error">{errors.name}</div> : null}
-
-                    <div className="field">
-                        <div>Email:</div>
-                        <input type="text"
-                            style={{ border: errors.email ? '1px solid red' : null }}
-                            value={formData.email}
-                            onChange={(e) => handleChange('email', e.target.value)}
-                        />
-                    </div>
-
-                    {errors.email ? <div className="field-error">{errors.email}</div> : null}
-
-                    <div className="field">
-                        <div>Город:</div>
-                        <input type="text"
-                            value={formData.city}
-                            onChange={(e) => handleChange('city', e.target.value)}
-                        />
-                    </div>
-
-                    <div className="field">
-                        <div>Компания:</div>
-                        <input type="text"
-                            value={formData.company}
-                            onChange={(e) => handleChange('company', e.target.value)}
-                        />
-                    </div>
-
-                    <div className="field">
-                        <div>Телефон:</div>
-                        <input type="text"
-                            value={formData.phone}
-                            onChange={(e) => handleChange('phone', e.target.value)}
-                        />
-                    </div>
-
-                    <div className="field">
-                        <div>Юзернейм:</div>
-                        <input type="text"
-                            style={{ border: errors.username ? '1px solid red' : null }}
-                            value={formData.username}
-                            onChange={(e) => handleChange('username', e.target.value)}
-                        />
-                    </div>
-
-                    {errors.username ? <div className="field-error">{errors.username}</div> : null}
-
-                    <div className="field">
-                        <div>Сайт:</div>
-                        <input type="text"
-                            value={formData.website}
-                            onChange={(e) => handleChange('website', e.target.value)}
-                        />
-                    </div>
-
+                    {
+                        Object.keys(formData).map(element => {
+                            return (
+                                <div key={element}
+                                    className="field">
+                                    <div className="field-label">{labels[element]}</div>
+                                    <input type="text"
+                                        style={{ border: errors[element] ? '1px solid red' : null }}
+                                        value={formData[element]}
+                                        onChange={e => handleChange(element, e.target.value)}
+                                    />
+                                    {errors[element] ? <div className="field-error">{errors[element]}</div> : null}
+                                </div>
+                            )
+                        })
+                    }
                 </div>
                 <div className="modal-buttons">
                     <button className="cancel-create" onClick={() => setIsModalOpen(false)}>Отмена</button>
