@@ -111,12 +111,8 @@ function App() {
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
         loadUsers={loadUsers}
+        setIsModalOpen={setIsModalOpen}
       />
-
-      <button className="create-user"
-        onClick={() => setIsModalOpen(true)}>
-        Создать пользователя
-      </button>
 
       {isModalOpen &&
         <Modal

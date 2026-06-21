@@ -5,12 +5,22 @@
 
 :root {
     --body-bgc: #0F172A;
-    --text-color: #E8EDF5;
-    --accent: #3abbcf;
-    --panels-bgc: #141e3a;
-    --border-color: #1a2648;
-    --empty-color: #6a7a9a;
-    --borders: 1px solid #1E2940;
+    --app-bgc: #172033;
+    --panels-bgc: #1E293B;
+    --panel-soft: #273449;
+
+    --text-color: #F8FAFC;
+    --muted-text: #94A3B8;
+
+    --accent: #38BDF8;
+    --accent-soft: rgba(56, 189, 248, 0.16);
+
+    --border-color: #334155;
+    --borders: 1px solid #334155;
+
+    --danger: #EF4444;
+    --danger-bg: rgba(239, 68, 68, 0.14);
+    --danger-border: rgba(239, 68, 68, 0.35);
 }
 
 body {
@@ -33,7 +43,7 @@ h3 {
     font-weight: 500;
     padding: 10px 0;
     margin-bottom: 10px;
-    border-bottom: 1px solid #1E2940;
+    border-bottom: var(--borders);
 }
 
 button {
@@ -47,7 +57,7 @@ button {
     padding: 5px 10px;
     height: 40px;
     background-color: var(--border-color);
-    border: 1px solid #2A3A6A;
+    border: var(--borders);
     cursor: pointer;
     transition: 0.3s ease;
 }
@@ -56,12 +66,20 @@ button:hover {
     border: 1px solid var(--accent);
 }
 
+.user-card,
+.controls,
+.modal,
+.delete-modal {
+    background-color: var(--panels-bgc);
+    border: var(--borders);
+}
+
 
 .app {
     margin: 20px 20px;
     padding: 20px;
-    background-color: #131C35;
-    border: 1px solid #1E2940;
+    background-color: var(--app-bgc);
+    border: var(--borders);
     border-radius: 26px;
 
     display: flex;
@@ -75,15 +93,15 @@ button:hover {
 }
 
 .header-icon {
-    border: 1px solid #2A3A6A;
+    border: var(--borders);
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    box-shadow: 0 0 10px 3px #1A2A50;
+    box-shadow: 0 0 10px 3px var(--accent-soft);
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #1A2A50;
+    background-color: var(--panel-soft);
 }
 
 .header-icon svg {
@@ -92,21 +110,21 @@ button:hover {
     height: 23px;
 }
 
-
-
 .controls {
-    background-color: var(--panels-bgc);
-    border: 2px solid var(--border-color);
     box-shadow: -1px 5px 15px #060A18;
     border-radius: 16px;
 
     margin: 30px 0;
     padding: 10px;
-    display: flex;
-    align-items: center;
-    gap: 20px;
 
-    color: #E8EDF5;
+    color: var(--text-color);
+}
+
+.controls svg {
+    stroke-width: 2.5;
+    height: 16px;
+    width: 16px;
+    color: var(--accent);
 }
 
 .search-panel {
@@ -115,12 +133,16 @@ button:hover {
     gap: 20px;
 }
 
+.create-user {
+    margin-left: auto;
+}
+
 .search-input {
     font-size: 16px;
-    background-color: #0F1830;
-    border: 1px solid var(--border-color);
+    background-color: #0B1220;
+    border: var(--borders);
     border-radius: 10px;
-    color: #E8EDF5;
+    color: var(--text-color);
 
     height: 40px;
     width: 300px;
@@ -130,19 +152,13 @@ button:hover {
 }
 
 .search-input::placeholder {
-    color: #5A6A8A;
+    color: var(--muted-text);
 }
 
 .search-input:focus {
     outline: none;
     border-color: var(--accent);
-    box-shadow: 0 0 0 3px rgba(244, 114, 107, 0.15);
-}
-
-.clean-icon {
-    height: 16px;
-    width: 16px;
-    color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-soft);
 }
 
 .users-list {
@@ -156,8 +172,6 @@ button:hover {
     position: relative;
     display: flex;
     flex-direction: column;
-    background-color: var(--panels-bgc);
-    border: 2px solid var(--border-color);
     border-radius: 16px;
     padding: 20px;
     width: 100%;
@@ -171,6 +185,14 @@ button:hover {
     position: absolute;
     right: 20px;
     top: 20px;
+    background-color: transparent;
+}
+
+.button-options svg {
+    stroke-width: 2.5;
+    height: 16px;
+    width: 16px;
+    color: var(--accent);
 }
 
 .dropdown-menu {
@@ -212,7 +234,7 @@ button:hover {
 }
 
 .delete {
-    color: rgb(204, 24, 24);
+    color: var(--danger);
 }
 
 .delete-modal-overlay {
@@ -235,13 +257,8 @@ button:hover {
     flex-direction: column;
     gap: 30px;
     align-items: center;
-
-    border: 3px solid var(--border-color);
     border-radius: 20px;
-
     padding: 20px;
-    background-color: var(--panels-bgc);
-
     font-size: 16px;
 }
 
@@ -259,12 +276,19 @@ button:hover {
 }
 
 .confirm-yes {
-    background-color: rgb(121, 0, 0);
+    background-color: var(--danger-bg);
+    border-color: var(--danger-border);
+    color: #FEE2E2;
+}
+
+.confirm-yes:hover {
+    background-color: rgba(239, 68, 68, 0.22);
+    border-color: var(--danger);
 }
 
 .user-card:hover {
     border-color: var(--accent);
-    box-shadow: 0 0 12px rgba(244, 114, 107, 0.2);
+    box-shadow: 0 0 14px var(--accent-soft);
 }
 
 .user-email,
@@ -293,8 +317,9 @@ button:hover {
 }
 
 .info,
-.empty-message {
-    color: var(--empty-color);
+.empty-message,
+.footer {
+    color: var(--muted-text);
 }
 
 .loader-wrapper {
@@ -303,7 +328,7 @@ button:hover {
     align-items: center;
     justify-content: center;
     padding: 10px;
-    color: var(--empty-color);
+    color: var(--muted-text);
 }
 
 .loader svg {
@@ -361,7 +386,7 @@ button:hover {
 }
 
 .footer {
-    border-top: 1px solid #1E2940;
+    border-top: var(--borders);
     display: flex;
     align-items: center;
     gap: 10px;
@@ -371,13 +396,6 @@ button:hover {
 
     font-size: 13px;
     font-weight: 400;
-
-    color: var(--empty-color);
-}
-
-.create-user {
-    width: fit-content;
-    margin-bottom: 30px;
 }
 
 
@@ -400,12 +418,8 @@ button:hover {
     display: flex;
     flex-direction: column;
     gap: 30px;
-
-    border: var(--borders);
     border-radius: 20px;
-
     padding: 20px;
-    background-color: var(--panels-bgc);
 }
 
 .modal-buttons {
@@ -432,8 +446,8 @@ button:hover {
 }
 
 .field-input {
-    background-color: #2A3A6A;
-    border: 1px solid var(--border-color);
+    background-color: var(--panel-soft);
+    border: var(--borders);
     box-shadow: none;
     padding: 5px 10px;
     color: inherit;
@@ -445,13 +459,10 @@ button:hover {
 }
 
 .field-input-error {
-    border: 1px solid red;
+    border: 1px solid var(--danger);
 }
 
-.field-error-info {
-    color: red;
-}
-
+.field-error-info,
 .required-star {
-    color: red;
+    color: var(--danger);
 }

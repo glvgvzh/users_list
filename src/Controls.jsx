@@ -1,11 +1,12 @@
-import { BrushCleaning } from 'lucide-react'
+import { BrushCleaning, RefreshCcw, UserRoundPlus } from 'lucide-react'
 
-function Controls({ searchQuery, setSearchQuery, loadUsers }) {
+function Controls({ searchQuery, setSearchQuery, loadUsers, setIsModalOpen }) {
     return (
         <>
             <div className="controls">
                 <div className="search-panel">
                     <input
+                        id="user-search"
                         className="search-input"
                         type="text"
                         placeholder="Поиск пользователя..."
@@ -15,12 +16,20 @@ function Controls({ searchQuery, setSearchQuery, loadUsers }) {
                     <button
                         className="clear-search-button"
                         onClick={() => setSearchQuery('')}>
-                        <BrushCleaning className="clean-icon" strokeWidth={2.5} />
-                        Очистить
+                        <BrushCleaning />
+                        Очистить поиск
                     </button>
+
                     <button className='refresh-users-list'
                         onClick={loadUsers}>
-                        Обновить
+                        <RefreshCcw />
+                        Обновить из API
+                    </button>
+
+                    <button className="create-user"
+                        onClick={() => setIsModalOpen(true)}>
+                        <UserRoundPlus />
+                        Создать пользователя
                     </button>
                 </div>
             </div>
