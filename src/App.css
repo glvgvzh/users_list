@@ -305,19 +305,6 @@ button {
     gap: 10px;
 }
 
-.form input {
-    background-color: #2A3A6A;
-    border: 1px solid var(--border-color);
-    box-shadow: none;
-    padding: 5px 10px;
-    color: inherit;
-}
-
-.form input:focus {
-    outline: none;
-    caret-color: var(--text-color);
-}
-
 .field {
     display: flex;
     gap: 10px;
@@ -328,6 +315,27 @@ button {
     width: 100px;
 }
 
-.field-error {
+.field-input {
+    background-color: #2A3A6A;
+    border: 1px solid var(--border-color);
+    box-shadow: none;
+    padding: 5px 10px;
+    color: inherit;
+}
+
+.field-input:focus {
+    outline: none;
+    caret-color: var(--text-color);
+}
+
+.field-input-error {
+    border: 1px solid red;
+}
+
+.field-error-info {
+    color: red;
+}
+
+.required-star {
     color: red;
 }

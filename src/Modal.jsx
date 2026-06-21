@@ -1,5 +1,15 @@
 import { useState } from "react"
 
+const fields = [
+    { key: 'name', label: 'Имя', required: true },
+    { key: 'email', label: 'Email', required: true },
+    { key: 'city', label: 'Город', required: false },
+    { key: 'company', label: 'Компания', required: false },
+    { key: 'phone', label: 'Телефон', required: false },
+    { key: 'username', label: 'Юзернейм', required: true },
+    { key: 'website', label: 'Сайт', required: false },
+]
+
 function Modal({ setIsModalOpen, createUser, onCreateUser }) {
     const [formData, setFormData] = useState({
         name: '',
@@ -10,16 +20,6 @@ function Modal({ setIsModalOpen, createUser, onCreateUser }) {
         username: '',
         website: '',
     })
-
-    const fields = [
-        { key: 'name', label: 'Имя', required: true },
-        { key: 'email', label: 'Email', required: true },
-        { key: 'city', label: 'Город', required: false },
-        { key: 'company', label: 'Компания', required: false },
-        { key: 'phone', label: 'Телефон', required: false },
-        { key: 'username', label: 'Юзернейм', required: true },
-        { key: 'website', label: 'Сайт', required: false },
-    ]
 
     const [errors, setErrors] = useState({})
 
@@ -57,17 +57,17 @@ function Modal({ setIsModalOpen, createUser, onCreateUser }) {
                 <h1>Создание пользователя</h1>
                 <div className="form">
                     {
-                        fields.map(element => {
+                        fields.map(field => {
                             return (
-                                <div key={element.key}
+                                <div key={field.key}
                                     className="field">
-                                    <div className="field-label">{element.label}</div>
-                                    <input type="text"
-                                        style={{ border: errors[element.key] ? '1px solid red' : null }}
-                                        value={formData[element.key]}
-                                        onChange={e => handleChange(element.key, e.target.value)}
+                                    <div className="field-label">{field.label} {field.required && <span className="required-star">*</span>}</div>
+                                    <input className={errors[field.key] ? 'field-input field-input-error' : 'field-input'}
+                                        type="text"
+                                        value={formData[field.key]}
+                                        onChange={e => handleChange(field.key, e.target.value)}
                                     />
-                                    {errors[element.key] ? <div className="field-error">{errors[element.key]}</div> : null}
+                                    {errors[field.key] ? <div className="field-error-info">{errors[field.key]}</div> : null}
                                 </div>
                             )
                         })
