@@ -1,7 +1,7 @@
 import UsersLoader from "./UsersLoader"
 import User from "./User"
 
-function UsersList({ loading, error, filteredUsers, deleteUser }) {
+function UsersList({ loading, error, filteredUsers, setIsDeleteModalOpen, setUserToDelete }) {
     return (
         <>
             <div className="users-list">
@@ -12,7 +12,14 @@ function UsersList({ loading, error, filteredUsers, deleteUser }) {
                 ) :
                     filteredUsers.length === 0
                         ? <p className="empty-message">Нет пользователей по выбранным фильтрам</p>
-                        : (filteredUsers.map(user => (<User key={user.id} user={user} deleteUser={deleteUser} />)))
+                        : (filteredUsers.map(user => (
+                            <User
+                                key={user.id}
+                                user={user}
+                                setIsDeleteModalOpen={setIsDeleteModalOpen}
+                                setUserToDelete={setUserToDelete}
+                            />))
+                        )
                 }
             </div>
         </>

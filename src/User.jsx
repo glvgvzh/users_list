@@ -4,7 +4,7 @@ import {
 } from 'lucide-react'
 import { useState } from 'react'
 
-function User({ user, deleteUser }) {
+function User({ user, setIsDeleteModalOpen, setUserToDelete }) {
 
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
@@ -30,7 +30,8 @@ function User({ user, deleteUser }) {
             </button>
             <button className='delete'
               onClick={() => {
-                deleteUser(user.id)
+                setUserToDelete({ id: user.id, name: user.name })
+                setIsDeleteModalOpen(true)
                 setIsMenuOpen(false)
               }}
             >

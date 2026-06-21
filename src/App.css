@@ -215,6 +215,53 @@ button:hover {
     color: rgb(204, 24, 24);
 }
 
+.delete-modal-overlay {
+    position: fixed;
+    inset: 0;
+    overflow-x: auto;
+
+    background-color: rgba(0, 0, 0, 0.55);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    z-index: 100;
+}
+
+.delete-modal {
+    width: min(420px, 90vw);
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    align-items: center;
+
+    border: 3px solid var(--border-color);
+    border-radius: 20px;
+
+    padding: 20px;
+    background-color: var(--panels-bgc);
+
+    font-size: 16px;
+}
+
+
+.delete-modal-buttons {
+    display: flex;
+    align-self: center;
+    gap: 30px;
+    margin-top: auto;
+}
+
+.delete-modal button {
+    width: 80px;
+    padding: 20px;
+}
+
+.confirm-yes {
+    background-color: rgb(121, 0, 0);
+}
+
 .user-card:hover {
     border-color: var(--accent);
     box-shadow: 0 0 12px rgba(244, 114, 107, 0.2);

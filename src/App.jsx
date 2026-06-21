@@ -8,6 +8,18 @@ import Footer from "./Footer"
 
 function App() {
 
+  const [searchQuery, setSearchQuery] = useState('')
+
+  const [apiUsers, setApiUsers] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
+
+  const [isModalOpen, setIsModalOpen] = useState(false)
+
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
+  const [userToDelete, setUserToDelete] = useState(null)
+
+
   async function createUser(user) {
     try {
       const newUser = {
@@ -42,14 +54,8 @@ function App() {
   }
 
   function handleCreateUser(newUser) {
-    setApiUsers(prev => [...prev, {...newUser, id: Date.now()}])
+    setApiUsers(prev => [...prev, { ...newUser, id: Date.now() }])
   }
-
-  const [apiUsers, setApiUsers] = useState([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
-
-  const [isModalOpen, setIsModalOpen] = useState(false)
 
   async function loadUsers() {
     try {
@@ -70,7 +76,7 @@ function App() {
     }
   }
 
-  useEffect(() => { 
+  useEffect(() => {
     const localStorageUsers = JSON.parse(localStorage.getItem('users'))
     if (localStorageUsers === null) {
       loadUsers()
@@ -85,7 +91,6 @@ function App() {
     localStorage.setItem('users', JSON.stringify(apiUsers))
   }, [apiUsers, loading])
 
-  const [searchQuery, setSearchQuery] = useState('')
 
   let filteredUsers = apiUsers.filter(user =>
     user.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -105,7 +110,6 @@ function App() {
       <Controls
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
-
         loadUsers={loadUsers}
       />
 
@@ -113,9 +117,49 @@ function App() {
         onClick={() => setIsModalOpen(true)}>
         Создать пользователя
       </button>
-      {isModalOpen ? <Modal setIsModalOpen={setIsModalOpen} createUser={createUser} onCreateUser={handleCreateUser} /> : null}
 
-      <UsersList loading={loading} error={error} filteredUsers={filteredUsers} deleteUser={deleteUser} />
+      {isModalOpen &&
+        <Modal
+          setIsModalOpen={setIsModalOpen}
+          createUser={createUser}
+          onCreateUser={handleCreateUser}
+        />
+      }
+
+      {isDeleteModalOpen && userToDelete !== null &&
+        <div className='delete-modal-overlay'>
+          <div className='delete-modal'>
+
+            <div className="confirm-message">Удалить пользователя {userToDelete.name}?</div>
+
+            <div className="delete-modal-buttons">
+              <button
+                className="confirm-no"
+                onClick={() => {
+                  setUserToDelete(null)
+                  setIsDeleteModalOpen(false)
+                }}>No</button>
+
+              <button
+                className="confirm-yes"
+                onClick={() => {
+                  deleteUser(userToDelete.id)
+                  setUserToDelete(null)
+                  setIsDeleteModalOpen(false)
+                }}>Yes</button>
+            </div>
+
+          </div>
+        </div>
+      }
+
+      <UsersList
+        loading={loading}
+        error={error}
+        filteredUsers={filteredUsers}
+        setUserToDelete={setUserToDelete}
+        setIsDeleteModalOpen={setIsDeleteModalOpen}
+      />
 
       <Footer error={error} loading={loading} apiUsersLength={apiUsers.length} />
 
