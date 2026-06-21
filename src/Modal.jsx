@@ -11,30 +11,24 @@ function Modal({ setIsModalOpen, createUser, onCreateUser }) {
         website: '',
     })
 
-    const labels = {
-        name: 'Имя',
-        email: 'Email',
-        city: 'Город',
-        company: 'Компания',
-        phone: 'Телефон',
-        username: 'Юзернейм',
-        website: 'Сайт',
-    }
-
-    const requiredFields = {
-        name: 'Заполните имя',
-        email: 'Заполните email',
-        username: 'Заполните юзернейм',
-    }
+    const fields = [
+        { key: 'name', label: 'Имя', required: true },
+        { key: 'email', label: 'Email', required: true },
+        { key: 'city', label: 'Город', required: false },
+        { key: 'company', label: 'Компания', required: false },
+        { key: 'phone', label: 'Телефон', required: false },
+        { key: 'username', label: 'Юзернейм', required: true },
+        { key: 'website', label: 'Сайт', required: false },
+    ]
 
     const [errors, setErrors] = useState({})
 
     async function handleSubmit() {
         const newErrors = {}
 
-        Object.keys(requiredFields).forEach(element => {
-            if (formData[element].trim() === '') {
-                newErrors[element] = requiredFields[element]
+        fields.forEach(field => {
+            if (field.required && formData[field.key].trim() === '') {
+                newErrors[field.key] = 'Обязательное поле'
             }
         })
 
@@ -63,17 +57,17 @@ function Modal({ setIsModalOpen, createUser, onCreateUser }) {
                 <h1>Создание пользователя</h1>
                 <div className="form">
                     {
-                        Object.keys(formData).map(element => {
+                        fields.map(element => {
                             return (
-                                <div key={element}
+                                <div key={element.key}
                                     className="field">
-                                    <div className="field-label">{labels[element]}</div>
+                                    <div className="field-label">{element.label}</div>
                                     <input type="text"
-                                        style={{ border: errors[element] ? '1px solid red' : null }}
-                                        value={formData[element]}
-                                        onChange={e => handleChange(element, e.target.value)}
+                                        style={{ border: errors[element.key] ? '1px solid red' : null }}
+                                        value={formData[element.key]}
+                                        onChange={e => handleChange(element.key, e.target.value)}
                                     />
-                                    {errors[element] ? <div className="field-error">{errors[element]}</div> : null}
+                                    {errors[element.key] ? <div className="field-error">{errors[element.key]}</div> : null}
                                 </div>
                             )
                         })
