@@ -55,11 +55,9 @@ button {
     justify-content: center;
     gap: 10px;
     padding: 5px 10px;
-    height: 40px;
     background-color: var(--border-color);
     border: var(--borders);
     cursor: pointer;
-    transition: 0.3s ease;
 }
 
 button:hover {
@@ -148,8 +146,6 @@ button:hover {
     height: 40px;
     width: 300px;
     padding: 0 0 0 20px;
-
-    transition: 0.3s ease;
 }
 
 .search-input::placeholder {
@@ -265,7 +261,33 @@ button:hover {
     padding: 20px;
 }
 
- .delete-modal {
+.edit-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.edit-row {
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.edit-key {
+    width: 100px;
+}
+
+.edit-input {
+    height: 18px;
+}
+
+.edit-modal-info {
+    text-align: center;
+}
+
+ .delete-modal,
+ .edit-modal {
     font-size: 16px;
 }
 

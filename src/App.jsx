@@ -62,6 +62,17 @@ function App() {
     setApiUsers(prev => [...prev, { ...newUser, id: Date.now() }])
   }
 
+  function handleEditUser(editedUser) {
+    const newUsers = apiUsers.map(user => {
+      if (user.id !== editedUser.id) {
+        return user
+      }
+
+      return editedUser
+    })
+    setApiUsers(newUsers)
+  }
+
   async function loadUsers() {
     try {
       setLoading(true)
@@ -142,6 +153,7 @@ function App() {
           userToEdit={userToEdit}
           setIsEditModalOpen={setIsEditModalOpen}
           setUserToEdit={setUserToEdit}
+          handleEditUser={handleEditUser}
         />
       }
 
