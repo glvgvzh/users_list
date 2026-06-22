@@ -38,9 +38,9 @@ function EditModal({ userToEdit, setUserToEdit, setIsEditModalOpen, handleEditUs
     }
 
     return (
-        <div className="edit-modal-overlay">
-            <div className="edit-modal">
-                <div className="edit-modal-info">Редактирование пользователя {userToEdit.name}</div>
+        <div className="modal-overlay">
+            <div className="modal">
+                <h2 className="modal-info">Редактирование пользователя {userToEdit.name}</h2>
                 <div className="edit-form">
                     {fields.map(field => {
                         return (
@@ -58,7 +58,7 @@ function EditModal({ userToEdit, setUserToEdit, setIsEditModalOpen, handleEditUs
                         )
                     })}
                 </div>
-                <div className="edit-modal-buttons">
+                <div className="modal-buttons">
                     <button
                         className="close-edit"
                         onClick={() => {

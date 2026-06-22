@@ -46,7 +46,7 @@ function CreateModal({ setIsCreateModalOpen, createUser, onCreateUser }) {
     return (
         <div className="modal-overlay">
             <div className="modal">
-                <h1>Создание пользователя</h1>
+                <h2>Создание пользователя</h2>
                 <div className="form">
                     {
                         fields.map(field => {

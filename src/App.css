@@ -1,3 +1,7 @@
+/* ==================================================================================================================
+    Base
+ ================================================================================================================== */
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -8,6 +12,7 @@
     --app-bgc: #172033;
     --panels-bgc: #1E293B;
     --panel-soft: #273449;
+    --panel-shadow: -1px 5px 15px #060A18;
 
     --text-color: #F8FAFC;
     --muted-text: #94A3B8;
@@ -31,21 +36,6 @@ body {
     font-weight: 400;
 }
 
-h1 {
-    color: var(--text-color);
-    font-size: 30px;
-    font-weight: 500;
-}
-
-h3 {
-    text-align: center;
-    font-size: 25px;
-    font-weight: 500;
-    padding: 10px 0;
-    margin-bottom: 10px;
-    border-bottom: var(--borders);
-}
-
 button {
     font: inherit;
     border-radius: 10px;
@@ -65,13 +55,14 @@ button:hover {
 }
 
 .user-card,
-.controls,
-.modal,
-.delete-modal,
-.edit-modal {
+.controls {
     background-color: var(--panels-bgc);
     border: var(--borders);
 }
+
+/* ==================================================================================================================
+    App
+ ================================================================================================================== */
 
 
 .app {
@@ -85,10 +76,20 @@ button:hover {
     flex-direction: column;
 }
 
+/* ==================================================================================================================
+    Header
+ ================================================================================================================== */
+
 .header {
     display: flex;
     align-items: center;
     gap: 20px;
+}
+
+header h1 {
+    color: var(--text-color);
+    font-size: 30px;
+    font-weight: 500;
 }
 
 .header-icon {
@@ -109,8 +110,12 @@ button:hover {
     height: 23px;
 }
 
+/* ==================================================================================================================
+    Controls
+ ================================================================================================================== */
+
 .controls {
-    box-shadow: -1px 5px 15px #060A18;
+    box-shadow: var(--panel-shadow);
     border-radius: 16px;
 
     margin: 30px 0;
@@ -158,6 +163,10 @@ button:hover {
     box-shadow: 0 0 0 3px var(--accent-soft);
 }
 
+/* ==================================================================================================================
+    UserList
+ ================================================================================================================== */
+
 .users-list {
     display: flex;
     flex-wrap: wrap;
@@ -165,78 +174,11 @@ button:hover {
     gap: 35px;
 }
 
-.user-card {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    border-radius: 16px;
-    padding: 20px;
-    width: 100%;
-    max-width: 290px;
-    box-shadow: -1px 5px 15px #060A18;
-    transition: 0.5s ease;
-}
+/* ==================================================================================================================
+    Modals Base
+ ================================================================================================================== */
 
-
-.button-options {
-    position: absolute;
-    right: 20px;
-    top: 20px;
-    background-color: transparent;
-}
-
-.button-options svg {
-    stroke-width: 2.5;
-    height: 16px;
-    width: 16px;
-    color: var(--accent);
-}
-
-.dropdown-menu {
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-    position: absolute;
-    background-color: var(--body-bgc);
-    border: var(--borders);
-    border-radius: 10px;
-    top: 60px;
-    right: 10px;
-    box-shadow: -1px 5px 15px #060A18;
-
-    z-index: 10;
-    overflow: hidden;
-}
-
-.edit,
-.delete {
-    justify-content: flex-start;
-    width: 100%;
-    background-color: var(--border-color);
-    border: 1px solid transparent;
-    font-weight: 300;
-    border-radius: 0;
-}
-
-.edit:hover,
-.delete:hover {
-    background-color: var(--panels-bgc);
-    border: 1px solid transparent;
-    border-radius: 0;
-}
-
-.edit svg,
-.delete svg {
-    stroke-width: 1;
-}
-
-.delete {
-    color: var(--danger);
-}
-
-.modal-overlay,
-.delete-modal-overlay,
-.edit-modal-overlay {
+.modal-overlay {
     position: fixed;
     inset: 0;
     overflow-x: auto;
@@ -250,16 +192,31 @@ button:hover {
     z-index: 100;
 }
 
-.modal,
-.delete-modal,
-.edit-modal {
+.modal-buttons {
+    display: flex;
+    align-self: center;
+    gap: 30px;
+    margin-top: auto;
+}
+
+.modal {
     width: min(520px, 90vw);
     display: flex;
     flex-direction: column;
     gap: 30px;
     border-radius: 20px;
     padding: 20px;
+    background-color: var(--panels-bgc);
+    border: var(--borders);
 }
+
+.modal h2 {
+    text-align: center;
+}
+
+/* ==================================================================================================================
+    EditModal
+ ================================================================================================================== */
 
 .edit-form {
     display: flex;
@@ -268,35 +225,30 @@ button:hover {
 }
 
 .edit-row {
-    font-size: 14px;
+    font-size: 100%;
     display: flex;
     align-items: center;
     gap: 16px;
+    height: 30px;
 }
 
 .edit-key {
+    display: flex;
+    align-items: center;
+    height: 100%;
     width: 100px;
-}
-
-.edit-input {
-    height: 18px;
-}
-
-.edit-modal-info {
-    text-align: center;
-}
-
- .delete-modal,
- .edit-modal {
     font-size: 16px;
 }
 
-.modal-buttons {
-    display: flex;
-    align-self: center;
-    gap: 30px;
-    margin-top: auto;
+.edit-input {
+    font-size: 16px;
+    height: 100%;
+    width: 300px;
 }
+
+/* ==================================================================================================================
+    CreateModal
+ ================================================================================================================== */
 
 .form {
     display: flex;
@@ -336,19 +288,9 @@ button:hover {
     color: var(--danger);
 }
 
-
-.delete-modal-buttons,
-.edit-modal-buttons {
-    display: flex;
-    align-self: center;
-    gap: 30px;
-    margin-top: auto;
-}
-
-.delete-modal button {
-    width: 80px;
-    padding: 20px;
-}
+/* ==================================================================================================================
+    DeleteModal
+ ================================================================================================================== */
 
 .confirm-yes {
     background-color: var(--danger-bg);
@@ -361,17 +303,55 @@ button:hover {
     border-color: var(--danger);
 }
 
+/* ==================================================================================================================
+    User Card
+ ================================================================================================================== */
+
+ .user-card h2 {
+    text-align: center;
+    font-size: 25px;
+    font-weight: 500;
+    padding: 10px 0;
+    margin-bottom: 10px;
+    border-bottom: var(--borders);
+}
+
+.user-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    border-radius: 16px;
+    padding: 20px;
+    width: 100%;
+    max-width: 290px;
+    box-shadow: var(--panel-shadow);
+    transition: 0.5s ease;
+}
+
 .user-card:hover {
     border-color: var(--accent);
     box-shadow: 0 0 14px var(--accent-soft);
 }
 
-.user-email,
-.user-city,
-.user-company,
-.user-phone,
-.user-username,
-.user-website {
+.button-options {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    background-color: transparent;
+}
+
+.button-options svg {
+    stroke-width: 2.5;
+    height: 16px;
+    width: 16px;
+    color: var(--accent);
+}
+
+/* ------------------------------------------------------------------------
+    User Info 
+------------------------------------------------------------------------ */
+
+.user-info-row {
     display: flex;
     align-items: center;
     gap: 10px;
@@ -392,10 +372,66 @@ button:hover {
 }
 
 .info,
-.empty-message,
-.footer {
+.empty-message {
     color: var(--muted-text);
 }
+
+.icon svg {
+    stroke-width: 1.5;
+    height: 20px;
+    width: 20px;
+    color: var(--accent);
+}
+
+/* ------------------------------------------------------------------------
+    Dropdown Menu 
+------------------------------------------------------------------------ */
+
+.dropdown-menu {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    position: absolute;
+    background-color: var(--body-bgc);
+    border: var(--borders);
+    border-radius: 10px;
+    top: 60px;
+    right: 10px;
+    box-shadow: var(--panel-shadow);
+
+    z-index: 10;
+    overflow: hidden;
+}
+
+.dropdown-edit,
+.dropdown-delete {
+    justify-content: flex-start;
+    width: 100%;
+    background-color: var(--border-color);
+    border: 1px solid transparent;
+    font-weight: 300;
+    border-radius: 0;
+}
+
+.dropdown-edit:hover,
+.dropdown-delete:hover {
+    background-color: var(--panels-bgc);
+    border: 1px solid transparent;
+    border-radius: 0;
+}
+
+.dropdown-edit svg,
+.dropdown-delete svg {
+    stroke-width: 1;
+}
+
+.dropdown-delete {
+    color: var(--danger);
+}
+
+/* ==================================================================================================================
+    UsersLoader
+ ================================================================================================================== */
 
 .loader-wrapper {
     width: 100%;
@@ -450,15 +486,9 @@ button:hover {
     opacity: 1;
 }
 
-
-
-.icon svg,
-.footer-icon svg {
-    stroke-width: 1.5;
-    height: 20px;
-    width: 20px;
-    color: var(--accent);
-}
+/* ==================================================================================================================
+    Footer
+ ================================================================================================================== */
 
 .footer {
     border-top: var(--borders);
@@ -471,4 +501,12 @@ button:hover {
 
     font-size: 13px;
     font-weight: 400;
+    color: var(--muted-text);
+}
+
+.footer-icon svg {
+    stroke-width: 1.5;
+    height: 20px;
+    width: 20px;
+    color: var(--accent);
 }

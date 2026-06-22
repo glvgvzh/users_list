@@ -20,7 +20,7 @@ function User({ user, setIsDeleteModalOpen, setUserToDelete, setUserToEdit, setI
         </button>
         {isMenuOpen &&
           <div className='dropdown-menu'>
-            <button className='edit'
+            <button className='dropdown-edit'
               onClick={() => {
                 setUserToEdit(user)
                 setIsEditModalOpen(true)
@@ -30,7 +30,7 @@ function User({ user, setIsDeleteModalOpen, setUserToDelete, setUserToEdit, setI
               <SquarePen />
               Редактировать
             </button>
-            <button className='delete'
+            <button className='dropdown-delete'
               onClick={() => {
                 setUserToDelete({ id: user.id, name: user.name })
                 setIsDeleteModalOpen(true)
@@ -45,32 +45,32 @@ function User({ user, setIsDeleteModalOpen, setUserToDelete, setUserToEdit, setI
       </div>
 
       <div className="circle-user-pic"><CircleUserRound strokeWidth={0.3} /></div>
-      <h3>{user.name}</h3>
+      <h2>{user.name}</h2>
 
-      <div className="user-email">
+      <div className="user-info-row">
         <div className="icon"><Mail /></div>
         <div className="info">{user.email}</div>
       </div>
 
-      <div className="user-city">
+      <div className="user-info-row">
         <div className="icon"><MapPin /></div>
         <div className="info">{user.address.city}</div>
       </div>
 
-      <div className="user-company">
+      <div className="user-info-row">
         <div className="icon"><BriefcaseBusiness /></div>
         <div className="info">{user.company.name}</div>
       </div>
 
-      <div className="user-phone">
+      <div className="user-info-row">
         <div className="icon"><Phone /></div>
         <div className="info">{user.phone}</div>
       </div>
-      <div className="user-username">
+      <div className="user-info-row">
         <div className="icon"><AtSign /></div>
         <div className="info">{user.username}</div>
       </div>
-      <div className="user-website">
+      <div className="user-info-row">
         <div className="icon"><Globe /></div>
         <div className="info">{user.website}</div>
       </div>

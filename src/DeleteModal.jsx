@@ -2,12 +2,12 @@
 function DeleteModal({ userToDelete, setUserToDelete, setIsDeleteModalOpen, deleteUser }) {
     return (
         <>
-                <div className='delete-modal-overlay'>
-                    <div className='delete-modal'>
+                <div className='modal-overlay'>
+                    <div className='modal'>
 
-                        <div className="confirm-message">Удалить пользователя {userToDelete.name}?</div>
+                        <h2 className="confirm-message">Удалить пользователя {userToDelete.name}?</h2>
 
-                        <div className="delete-modal-buttons">
+                        <div className="modal-buttons">
                             <button
                                 className="confirm-no"
                                 onClick={() => {
