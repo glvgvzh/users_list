@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
 import './App.css'
+import ToastNotification from "./ToastNotification"
 import Header from "./Header"
 import Controls from "./Controls"
 import CreateModal from "./CreateModal"
@@ -23,6 +24,8 @@ function App() {
 
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
   const [userToEdit, setUserToEdit] = useState(null)
+
+  const [toast, setToast] = useState(null)
 
 
   async function createUser(user) {
@@ -116,11 +119,25 @@ function App() {
 
   function deleteUser(userId) {
     setApiUsers(prev => prev.filter(user => user.id !== userId))
+    showToast('Пользователь удален', 'success')
+  }
+
+  function showToast(message, type) {
+    setToast({ message, type })
+    setTimeout(() => {
+      setToast(null)
+    }, 1000);
   }
   
 
   return (
     <div className="app">
+
+      {toast && 
+        <ToastNotification 
+        message={toast.message}
+        type={toast.type} />
+      }
 
       <Header error={error} loading={loading} apiUsersLength={apiUsers.length} />
 
@@ -136,6 +153,7 @@ function App() {
           setIsCreateModalOpen={setIsCreateModalOpen}
           createUser={createUser}
           onCreateUser={handleCreateUser}
+          showToast={showToast}
         />
       }
 
@@ -154,6 +172,7 @@ function App() {
           setIsEditModalOpen={setIsEditModalOpen}
           setUserToEdit={setUserToEdit}
           handleEditUser={handleEditUser}
+          showToast={showToast}
         />
       }
 

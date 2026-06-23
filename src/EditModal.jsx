@@ -2,7 +2,7 @@ import { useState } from "react"
 
 import { fields } from "./userFields"
 
-function EditModal({ userToEdit, setUserToEdit, setIsEditModalOpen, handleEditUser }) {
+function EditModal({ userToEdit, setUserToEdit, setIsEditModalOpen, handleEditUser, showToast }) {
 
     const [formData, setFormData] = useState({
         name: userToEdit.name,
@@ -35,6 +35,7 @@ function EditModal({ userToEdit, setUserToEdit, setIsEditModalOpen, handleEditUs
         handleEditUser(editedUser)
         setIsEditModalOpen(false)
         setUserToEdit(null)
+        showToast('Пользователь сохранен', 'success')
     }
 
     return (

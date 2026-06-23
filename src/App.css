@@ -60,6 +60,43 @@ button:hover {
     border: var(--borders);
 }
 
+.toast {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3px;
+
+    right: 10px;
+    top: 30px;
+    position: fixed;
+    z-index: 10;
+
+    width: fit-content;
+    height: fit-content;
+    padding: 12px 16px;
+
+    background: #10251a;
+    border: 1px solid #16a34a;
+    color: #86efac;
+
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+
+    border-radius: 10px;
+
+    animation: toastAppear 0.3s ease;
+}
+
+@keyframes toastAppear {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 /* ==================================================================================================================
     App
  ================================================================================================================== */
@@ -71,7 +108,7 @@ button:hover {
     background-color: var(--app-bgc);
     border: var(--borders);
     border-radius: 26px;
-
+    position: relative;
     display: flex;
     flex-direction: column;
 }

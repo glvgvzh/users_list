@@ -2,7 +2,7 @@ import { useState } from "react"
 
 import { fields } from "./userFields"
 
-function CreateModal({ setIsCreateModalOpen, createUser, onCreateUser }) {
+function CreateModal({ setIsCreateModalOpen, createUser, onCreateUser, showToast }) {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -36,6 +36,7 @@ function CreateModal({ setIsCreateModalOpen, createUser, onCreateUser }) {
         const createdUser = await createUser({ ...formData })
         onCreateUser(createdUser)
         setIsCreateModalOpen(false)
+        showToast('Пользователь создан', 'success')
     }
 
     function handleChange(fieldName, value) {
