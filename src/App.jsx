@@ -117,16 +117,16 @@ function App() {
     user.username.toLowerCase().includes(searchQuery.toLowerCase())
   )
 
-  function deleteUser(userId) {
+  function deleteUser(userId, userName) {
     setApiUsers(prev => prev.filter(user => user.id !== userId))
-    showToast('Пользователь удален', 'success')
+    showToast(`Пользователь ${userName} удален`, 'success')
   }
 
   function showToast(message, type) {
     setToast({ message, type })
     setTimeout(() => {
       setToast(null)
-    }, 1000);
+    }, 2000);
   }
   
 

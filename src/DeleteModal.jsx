@@ -18,7 +18,7 @@ function DeleteModal({ userToDelete, setUserToDelete, setIsDeleteModalOpen, dele
                             <button
                                 className="confirm-yes"
                                 onClick={() => {
-                                    deleteUser(userToDelete.id)
+                                    deleteUser(userToDelete.id, userToDelete.name)
                                     setUserToDelete(null)
                                     setIsDeleteModalOpen(false)
                                 }}>Yes</button>

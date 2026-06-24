@@ -36,7 +36,7 @@ function CreateModal({ setIsCreateModalOpen, createUser, onCreateUser, showToast
         const createdUser = await createUser({ ...formData })
         onCreateUser(createdUser)
         setIsCreateModalOpen(false)
-        showToast('Пользователь создан', 'success')
+        showToast(`Пользователь ${formData.name} создан`, 'success')
     }
 
     function handleChange(fieldName, value) {

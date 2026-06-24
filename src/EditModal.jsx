@@ -35,7 +35,7 @@ function EditModal({ userToEdit, setUserToEdit, setIsEditModalOpen, handleEditUs
         handleEditUser(editedUser)
         setIsEditModalOpen(false)
         setUserToEdit(null)
-        showToast('Пользователь сохранен', 'success')
+        showToast(`Пользователь ${editedUser.name} сохранен`, 'success')
     }
 
     return (
