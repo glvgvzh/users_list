@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
 import './App.css'
+import useToast from "./hooks/useToast"
 import ToastNotification from "./ToastNotification"
 import Header from "./Header"
 import Controls from "./Controls"
@@ -25,7 +26,7 @@ function App() {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
   const [userToEdit, setUserToEdit] = useState(null)
 
-  const [toast, setToast] = useState(null)
+  const { toast, showToast } = useToast()
 
 
   async function createUser(user) {
@@ -111,7 +112,7 @@ function App() {
   }, [apiUsers, loading])
 
 
-  let filteredUsers = apiUsers.filter(user =>
+  const filteredUsers = apiUsers.filter(user =>
     user.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
     user.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
     user.username.toLowerCase().includes(searchQuery.toLowerCase())
@@ -122,21 +123,14 @@ function App() {
     showToast(`Пользователь ${userName} удален`, 'success')
   }
 
-  function showToast(message, type) {
-    setToast({ message, type })
-    setTimeout(() => {
-      setToast(null)
-    }, 2000);
-  }
-  
 
   return (
     <div className="app">
 
-      {toast && 
-        <ToastNotification 
-        message={toast.message}
-        type={toast.type} />
+      {toast &&
+        <ToastNotification
+          message={toast.message}
+          type={toast.type} />
       }
 
       <Header error={error} loading={loading} apiUsersLength={apiUsers.length} />
